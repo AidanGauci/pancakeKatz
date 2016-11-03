@@ -23,6 +23,7 @@ public class PickupSword_Aidan : MonoBehaviour {
         {
             if (CircleCircleCheck(transform.position, 1, playerRef.transform.position, checkDistance))
             {
+                UI.swordText.text = "Press 'E' to pick up sword";
                 UI.swordText.gameObject.SetActive(true);
                 UI.swordTextBackground.gameObject.SetActive(true);
 
@@ -33,8 +34,9 @@ public class PickupSword_Aidan : MonoBehaviour {
                     UI.swordTextBackground.gameObject.SetActive(false);
                 }
             }
-            else if (Vector3.Distance(transform.position, playerRef.transform.position) > checkDistance)
+            else if (CircleCircleCheck(transform.position, 1, playerRef.transform.position, checkDistance))
             {
+                UI.swordText.text = "";
                 UI.swordText.gameObject.SetActive(false);
                 UI.swordTextBackground.gameObject.SetActive(false);
             }

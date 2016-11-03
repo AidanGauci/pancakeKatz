@@ -8,7 +8,6 @@ public class GameManager_Aidan : MonoBehaviour {
 
     EndRoomAllyLocations_Aidan endRoomLocations;
     AllyAI_Aidan[] allAllies;
-    int endRoomCounter = 0;
 
     void Start()
     {
@@ -22,11 +21,8 @@ public class GameManager_Aidan : MonoBehaviour {
         {
             for (int i = 0; i < allAllies.Length; i++)
             {
-                if (allAllies[i].doneBefore)
-                {
-                    int modNum = i % endRoomLocations.allEndAllyLocations.Length;
-                    SetEndDestination(i, modNum);
-                }
+                 int modNum = i % endRoomLocations.allEndAllyLocations.Length;
+                 SetEndDestination(i, modNum);
             }
 
             isDoorBroken = false;

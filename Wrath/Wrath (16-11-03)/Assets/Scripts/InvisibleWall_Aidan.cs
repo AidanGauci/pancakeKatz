@@ -6,10 +6,11 @@ public class InvisibleWall_Aidan : MonoBehaviour {
     public GameObject invisibleWall;
 
     Jailer_Aidan jailer;
-    bool activated = false;
+    UIManager_Aidan UI;
 
     void Start()
     {
+        UI = FindObjectOfType<UIManager_Aidan>();
         jailer = FindObjectOfType<Jailer_Aidan>();
     }
 
@@ -23,11 +24,21 @@ public class InvisibleWall_Aidan : MonoBehaviour {
 
 	void OnTriggerEnter(Collider hit)
     {
-        jailer.wallTriggered = true;
+        print("hitting tutorial trigger");
+        if (hit.tag == "Player")
+        {
+            jailer.wallTriggered = true;
+            UI.wallTriggered = true;
+        }
     }
 
     void OnTriggerExit(Collider hit)
     {
-        jailer.wallTriggered = false;
+        print("hitting tutorial trigger");
+        if (hit.tag == "Player")
+        {
+            jailer.wallTriggered = false;
+            UI.wallTriggered = false;
+        }
     }
 }

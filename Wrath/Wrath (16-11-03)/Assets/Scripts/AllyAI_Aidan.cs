@@ -13,6 +13,7 @@ public class AllyAI_Aidan : MonoBehaviour {
     [Header("Variables to Assign")]
     public string[] allySaveTextChoices;
     public Transform doorPos;
+    public Transform actualDoorPos;
     public PETER_PlayerMovement playerT;
     public LayerMask playerLayerMask;
     //public ParticleSystem disappearEffect;
@@ -23,6 +24,7 @@ public class AllyAI_Aidan : MonoBehaviour {
     public float doorCheckDistanceMin = 2f;
     public float doorCheckDistanceMax = 3f;
     public float endCheckDistance = 3f;
+    public float publicWaitTimeForCollider = 1f;
 
     //private variables
     Transform childT;
@@ -35,6 +37,7 @@ public class AllyAI_Aidan : MonoBehaviour {
     bool talkedToAlly = false;
     bool hasBeenTalkedTo = false;
     bool headingToEnd = false;
+    bool atEnd = false;
     public bool doneBefore {get; private set;}
 
     void Start()
@@ -52,7 +55,7 @@ public class AllyAI_Aidan : MonoBehaviour {
             if (Physics.Raycast(transform.position, directionToPlayer, checkDistance, playerLayerMask, QueryTriggerInteraction.Collide))
             {
                  OnTalkTo();
-                 canPress = false;   
+                 canPress = false;
             }
         }
 
@@ -67,17 +70,22 @@ public class AllyAI_Aidan : MonoBehaviour {
 
         if (hasBeenTalkedTo)
         {
-            if (CircleCircleCheck(transform.position, 1, navigator.destination, doorCheckDistanceMax) && waitTimeForCollider <= Time.time)
+            if (CircleCircleCheck(transform.position, 1, navigator.destination, doorCheckDistanceMax))
             {
+                waitTimeForCollider = Time.time + publicWaitTimeForCollider;
                 navigator.Stop();
-                myCollider.enabled = false;
-                navigator.enabled = false;
-                GetComponent<Rigidbody>().freezeRotation = true;
                 hasBeenTalkedTo = false;
                 canPress = false;
             }
         }
         
+        if (!hasBeenTalkedTo && !canPress && waitTimeForCollider <= Time.time && !headingToEnd && !atEnd)
+        {
+            myCollider.enabled = false;
+            navigator.enabled = false;
+            GetComponent<Rigidbody>().freezeRotation = true;
+            transform.LookAt(actualDoorPos);
+        }
 
         if (headingToEnd)
         {
@@ -105,7 +113,6 @@ public class AllyAI_Aidan : MonoBehaviour {
 
     void OnFinishTalking()
     {
-        waitTimeForCollider = Time.time + 0.3f;
         navigator.SetDestination(doorPos.position);
         canPress = true;
         talkedToAlly = false;
@@ -121,6 +128,7 @@ public class AllyAI_Aidan : MonoBehaviour {
         navigator.SetDestination(position);
         navigator.Resume();
         headingToEnd = true;
+        atEnd = true;
     }
 
     bool CircleCircleCheck(Vector3 P1, float R1, Vector3 P2, float R2)

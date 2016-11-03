@@ -7,7 +7,6 @@ public class DoorManager_Aidan : MonoBehaviour {
     
     PETER_PlayerMovement playerRef;
     UIManager_Aidan UI;
-    int boolCounter = 0;
     int allyCounter = 0;
     bool allAlliesCollided = false;
 
@@ -28,13 +27,12 @@ public class DoorManager_Aidan : MonoBehaviour {
 
     void OnTriggerEnter(Collider hit)
     {
-        print("has collided");
         if (hit.tag == "Player")
         {
             if (allAlliesCollided)
             {
                 FindObjectOfType<GameManager_Aidan>().isDoorBroken = true;
-                FindObjectOfType<PETER_PlayerMovement>().GetComponent<NavMeshAgent>().areaMask = 1001;
+                playerRef.GetComponent<NavMeshAgent>().areaMask = 10010;
                 if (doorParticleEffect != null)
                 {
                     Destroy(Instantiate(doorParticleEffect, transform.position, transform.rotation), 2);
@@ -46,20 +44,17 @@ public class DoorManager_Aidan : MonoBehaviour {
 
     void OnTriggerStay(Collider hit)
     {
-        if (hit.tag == "Player")
-        {
-            if (hit.tag == "Player")
-            {
-                if (allAlliesCollided)
-                {
-                    FindObjectOfType<GameManager_Aidan>().isDoorBroken = true;
-                    FindObjectOfType<PETER_PlayerMovement>().GetComponent<NavMeshAgent>().areaMask = 1001;
-                    if (doorParticleEffect != null)
-                    {
-                        Destroy(Instantiate(doorParticleEffect, transform.position, transform.rotation), 2);
-                    }
-                    Destroy(gameObject);
-                }
+       if (hit.tag == "Player")
+       {
+           if (allAlliesCollided)
+           {
+               FindObjectOfType<GameManager_Aidan>().isDoorBroken = true;
+               playerRef.GetComponent<NavMeshAgent>().areaMask = 1001;
+               if (doorParticleEffect != null)
+               {
+                   Destroy(Instantiate(doorParticleEffect, transform.position, transform.rotation), 2);
+               }
+               Destroy(gameObject);
             }
         }
     }

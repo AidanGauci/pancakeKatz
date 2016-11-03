@@ -12,6 +12,7 @@ public class UIManager_Aidan : MonoBehaviour {
     public Image swordTextBackground;
     public Image[] healthIcons;
     public int allyCurrentCount { get; private set; }
+    public bool wallTriggered = false;
 
     float deactivateTime1;
     float deactivateTime2;
@@ -29,6 +30,18 @@ public class UIManager_Aidan : MonoBehaviour {
             saveAllyTexts[1].text = "";
             saveAllyTexts[1].gameObject.SetActive(false);
             saveAllyBackgrounds[1].gameObject.SetActive(false);
+        }
+        if (wallTriggered && !FindObjectOfType<Jailer_Aidan>().swordTaken)
+        {
+            swordText.gameObject.SetActive(true);
+            swordTextBackground.gameObject.SetActive(true);
+            swordText.text = "Get back to work!";
+        }
+        else if (!wallTriggered && !FindObjectOfType<Jailer_Aidan>().swordTaken)
+        {
+            swordText.text = "Press 'E' to pick up sword";
+            swordText.gameObject.SetActive(false);
+            swordTextBackground.gameObject.SetActive(false);
         }
     }
 
