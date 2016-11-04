@@ -16,6 +16,10 @@ public class SwordAttack_Aidan : MonoBehaviour {
         {
             Destroy(hit.gameObject);
         }
+        else if (hit.tag == "EndDoor" && playerAtt.currState == PETER_PlayerAttack.attackState.midSwing)
+        {
+            FindObjectOfType<GameManager_Aidan>().HasHitEndBox();
+        }
     }
 
     void OnTriggerStay(Collider hit)
@@ -23,6 +27,10 @@ public class SwordAttack_Aidan : MonoBehaviour {
         if (hit.tag == "Enemy" && playerAtt.currState == PETER_PlayerAttack.attackState.midSwing)
         {
             Destroy(hit.gameObject);
+        }
+        else if (hit.tag == "EndDoor" && playerAtt.currState == PETER_PlayerAttack.attackState.midSwing)
+        {
+            FindObjectOfType<GameManager_Aidan>().HasHitEndBox();
         }
     }
 }

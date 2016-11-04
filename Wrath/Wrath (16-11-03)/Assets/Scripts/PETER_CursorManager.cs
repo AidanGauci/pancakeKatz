@@ -4,16 +4,26 @@ using System.Collections;
 public class PETER_CursorManager : MonoBehaviour
 {
 
-	// Use this for initialization
+    GameManager_Aidan gameManager;
+
 	void Start ()
     {
+        gameManager = FindObjectOfType<GameManager_Aidan>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 	
-	// Update is called once per frame
 	void Update ()
     {
+        if (gameManager.loadedAnotherScene)
+        {
+            Cursor.visible = true;
+        }
+        else if (!gameManager.loadedAnotherScene)
+        {
+            Cursor.visible = false;
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Cursor.visible = !Cursor.visible;

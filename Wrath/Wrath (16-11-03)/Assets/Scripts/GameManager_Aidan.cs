@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class GameManager_Aidan : MonoBehaviour {
 
     [HideInInspector]
     public bool isDoorBroken = false;
+    [HideInInspector]
+    public bool loadedAnotherScene = false;
 
     EndRoomAllyLocations_Aidan endRoomLocations;
     AllyAI_Aidan[] allAllies;
@@ -13,6 +16,7 @@ public class GameManager_Aidan : MonoBehaviour {
     {
         endRoomLocations = FindObjectOfType<EndRoomAllyLocations_Aidan>();
         allAllies = FindObjectsOfType<AllyAI_Aidan>();
+        DontDestroyOnLoad(gameObject);
     }
 
     void Update()
@@ -32,5 +36,11 @@ public class GameManager_Aidan : MonoBehaviour {
     void SetEndDestination(int i, int modNum)
     {
         allAllies[i].SetEndDestination(endRoomLocations.allEndAllyLocations[modNum].position);
+    }
+
+    public void HasHitEndBox()
+    {
+        loadedAnotherScene = true;
+        SceneManager.LoadScene("EndGameScene");
     }
 }

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIManager_Aidan : MonoBehaviour {
 
@@ -14,34 +15,54 @@ public class UIManager_Aidan : MonoBehaviour {
     public int allyCurrentCount { get; private set; }
     public bool wallTriggered = false;
 
+    GameManager_Aidan gameManager;
+    bool jailerDead = false;
     float deactivateTime1;
     float deactivateTime2;
 
+    void Start()
+    {
+        gameManager = FindObjectOfType<GameManager_Aidan>();
+    }
+
     void Update()
     {
-        if (deactivateTime1 <= Time.time)
+        if (FindObjectOfType<Jailer_Aidan>() == null)
+        {
+            jailerDead = true;
+        }
+
+        if (deactivateTime1 <= Time.time && !gameManager.loadedAnotherScene)
         {
             saveAllyTexts[0].text = "";
             saveAllyTexts[0].gameObject.SetActive(false);
             saveAllyBackgrounds[0].gameObject.SetActive(false);
         }
-        if (deactivateTime2 <= Time.time)
+
+        if (deactivateTime2 <= Time.time && !gameManager.loadedAnotherScene)
         {
             saveAllyTexts[1].text = "";
             saveAllyTexts[1].gameObject.SetActive(false);
             saveAllyBackgrounds[1].gameObject.SetActive(false);
         }
-        if (wallTriggered && !FindObjectOfType<Jailer_Aidan>().swordTaken)
+
+        if (wallTriggered && !jailerDead && !gameManager.loadedAnotherScene)
         {
-            swordText.gameObject.SetActive(true);
-            swordTextBackground.gameObject.SetActive(true);
-            swordText.text = "Get back to work!";
+            if (!FindObjectOfType<Jailer_Aidan>().swordTaken)
+            {
+                swordText.gameObject.SetActive(true);
+                swordTextBackground.gameObject.SetActive(true);
+                swordText.text = "Get back to work!";
+            }
         }
-        else if (!wallTriggered && !FindObjectOfType<Jailer_Aidan>().swordTaken)
+        else if (!wallTriggered && !jailerDead && !gameManager.loadedAnotherScene)
         {
-            swordText.text = "Press 'E' to pick up sword";
-            swordText.gameObject.SetActive(false);
-            swordTextBackground.gameObject.SetActive(false);
+            if (!FindObjectOfType<Jailer_Aidan>().swordTaken)
+            {
+                swordText.text = "Press 'E' to pick up sword";
+                swordText.gameObject.SetActive(false);
+                swordTextBackground.gameObject.SetActive(false);
+            }
         }
     }
 
@@ -67,5 +88,10 @@ public class UIManager_Aidan : MonoBehaviour {
             saveAllyTexts[0].gameObject.SetActive(true);
             saveAllyBackgrounds[0].gameObject.SetActive(true);
         }
+    }
+
+    public void OnEndScreenButtonPress()
+    {
+        SceneManager.LoadScene("MainGameScene");
     }
 }
