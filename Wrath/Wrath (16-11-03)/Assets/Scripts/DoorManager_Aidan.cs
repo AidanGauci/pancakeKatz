@@ -32,10 +32,18 @@ public class DoorManager_Aidan : MonoBehaviour {
             if (allAlliesCollided)
             {
                 FindObjectOfType<GameManager_Aidan>().isDoorBroken = true;
-                playerRef.GetComponent<NavMeshAgent>().areaMask = 10010;
+                playerRef.GetComponent<NavMeshAgent>().areaMask = 10011;
+                GameObject[] doorSpheres = GameObject.FindGameObjectsWithTag("door");
                 if (doorParticleEffect != null)
                 {
-                    Destroy(Instantiate(doorParticleEffect, transform.position, transform.rotation), 2);
+                    float randomX = Random.Range(85, 95);
+                    float randomY = Random.Range(-2, 2);
+                    float randomZ = Random.Range(-2, 2);
+
+                    foreach (GameObject removable in doorSpheres)
+                    {
+                        Destroy(Instantiate(doorParticleEffect, removable.transform.position, Quaternion.Euler(randomX, randomY, randomZ)), 2);
+                    }
                 }
                 Destroy(gameObject);
             }
@@ -50,10 +58,7 @@ public class DoorManager_Aidan : MonoBehaviour {
            {
                FindObjectOfType<GameManager_Aidan>().isDoorBroken = true;
                playerRef.GetComponent<NavMeshAgent>().areaMask = 1001;
-               if (doorParticleEffect != null)
-               {
-                   Destroy(Instantiate(doorParticleEffect, transform.position, transform.rotation), 2);
-               }
+                
                Destroy(gameObject);
             }
         }
