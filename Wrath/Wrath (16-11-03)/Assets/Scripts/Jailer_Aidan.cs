@@ -30,19 +30,13 @@ public class Jailer_Aidan : MonoBehaviour {
         {
             if (wallTriggered)
             {
-                //myText.text = onfirstsight;
                 transform.LookAt(mainCamera);
                 transform.Rotate(Vector3.up, 180);
-            }
-            else if (!wallTriggered)
-            {
-                //myText.text = "";
             }
         }
         else if (swordTaken && !isAngryTextOn)
         {
-            playerRef.TutorialDone();
-            //
+           
             transform.LookAt(mainCamera);
             transform.Rotate(Vector3.up, 180);
             isAngryTextOn = true;
@@ -53,11 +47,6 @@ public class Jailer_Aidan : MonoBehaviour {
         {
             transform.LookAt(mainCamera);
             transform.Rotate(Vector3.up, 180);
-        }
-
-        else if (turnOffText < Time.time)
-        {
-            //myText.text = "";
         }
     }
 }

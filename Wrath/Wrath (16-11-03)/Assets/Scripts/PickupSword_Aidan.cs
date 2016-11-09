@@ -3,18 +3,17 @@ using System.Collections;
 
 public class PickupSword_Aidan : MonoBehaviour {
 
+    [HideInInspector]
+    public bool isSwordTaken;
     public float checkDistance = 1f;
 
     PETER_PlayerMovement playerRef;
     UIManager_Aidan UI;
-    Jailer_Aidan jailer;
-    bool isSwordTaken;
 
     void Start()
     {
         playerRef = FindObjectOfType<PETER_PlayerMovement>();
         UI = FindObjectOfType<UIManager_Aidan>();
-        jailer = FindObjectOfType<Jailer_Aidan>();
     }
 
 	void Update ()
@@ -47,11 +46,11 @@ public class PickupSword_Aidan : MonoBehaviour {
             Transform pickaxe = camX.FindChild("Pickaxe");
             Transform sword = camX.FindChild("Sword");
 
+            playerRef.TutorialDone();
+
             pickaxe.gameObject.SetActive(false);
             sword.gameObject.SetActive(true);
             gameObject.SetActive(false);
-
-            jailer.swordTaken = true;
         }
     }
 

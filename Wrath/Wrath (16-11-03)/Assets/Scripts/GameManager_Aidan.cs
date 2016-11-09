@@ -6,41 +6,82 @@ public class GameManager_Aidan : MonoBehaviour {
 
     [HideInInspector]
     public bool isDoorBroken = false;
-    [HideInInspector]
-    public bool loadedAnotherScene = false;
+    public static GameManager_Aidan instance = null;
 
     EndRoomAllyLocations_Aidan endRoomLocations;
     AllyAI_Aidan[] allAllies;
 
-    void Start()
+    void Awake()
     {
         endRoomLocations = FindObjectOfType<EndRoomAllyLocations_Aidan>();
         allAllies = FindObjectsOfType<AllyAI_Aidan>();
+
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+
         DontDestroyOnLoad(gameObject);
+    }
+
+    void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.visible = !Cursor.visible;
+        }
+
+        if (Cursor.visible)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+
         if (isDoorBroken)
         {
-            for (int i = 0; i < allAllies.Length; i++)
-            {
-                 int modNum = i % endRoomLocations.allEndAllyLocations.Length;
-                 SetEndDestination(i, modNum);
-            }
-
-            isDoorBroken = false;
+            SetEndDestination();
         }
     }
 
-    void SetEndDestination(int i, int modNum)
+    void SetEndDestination()
     {
-        allAllies[i].SetEndDestination(endRoomLocations.allEndAllyLocations[modNum].position);
+        if (endRoomLocations == null)
+        {
+            endRoomLocations = FindObjectOfType<EndRoomAllyLocations_Aidan>();
+        }
+
+        if (allAllies == null)
+        {
+            allAllies = FindObjectsOfType<AllyAI_Aidan>();
+        }
+
+        for (int i = 0; i < allAllies.Length; i++)
+        {
+            int modNum = i % endRoomLocations.allEndAllyLocations.Length;
+            allAllies[i].SetEndDestination(endRoomLocations.allEndAllyLocations[modNum].position);
+        }
+
+        isDoorBroken = false;
     }
 
     public void HasHitEndBox()
     {
-        loadedAnotherScene = true;
+        Cursor.visible = true;
+        allAllies = null;
+        endRoomLocations = null;
         SceneManager.LoadScene("EndGameScene");
     }
 }

@@ -15,15 +15,6 @@ public class PETER_CursorManager : MonoBehaviour
 	
 	void Update ()
     {
-        if (gameManager.loadedAnotherScene)
-        {
-            Cursor.visible = true;
-        }
-        else if (!gameManager.loadedAnotherScene)
-        {
-            Cursor.visible = false;
-        }
-
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Cursor.visible = !Cursor.visible;

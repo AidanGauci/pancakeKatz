@@ -15,15 +15,9 @@ public class UIManager_Aidan : MonoBehaviour {
     public int allyCurrentCount { get; private set; }
     public bool wallTriggered = false;
 
-    GameManager_Aidan gameManager;
     bool jailerDead = false;
     float deactivateTime1;
     float deactivateTime2;
-
-    void Start()
-    {
-        gameManager = FindObjectOfType<GameManager_Aidan>();
-    }
 
     void Update()
     {
@@ -32,21 +26,21 @@ public class UIManager_Aidan : MonoBehaviour {
             jailerDead = true;
         }
 
-        if (deactivateTime1 <= Time.time && !gameManager.loadedAnotherScene)
+        if (deactivateTime1 <= Time.time)
         {
             saveAllyTexts[0].text = "";
             saveAllyTexts[0].gameObject.SetActive(false);
             saveAllyBackgrounds[0].gameObject.SetActive(false);
         }
 
-        if (deactivateTime2 <= Time.time && !gameManager.loadedAnotherScene)
+        if (deactivateTime2 <= Time.time)
         {
             saveAllyTexts[1].text = "";
             saveAllyTexts[1].gameObject.SetActive(false);
             saveAllyBackgrounds[1].gameObject.SetActive(false);
         }
 
-        if (wallTriggered && !jailerDead && !gameManager.loadedAnotherScene)
+        if (wallTriggered && !jailerDead)
         {
             if (!FindObjectOfType<Jailer_Aidan>().swordTaken)
             {
@@ -55,7 +49,7 @@ public class UIManager_Aidan : MonoBehaviour {
                 swordText.text = "Get back to work!";
             }
         }
-        else if (!wallTriggered && !jailerDead && !gameManager.loadedAnotherScene)
+        else if (!wallTriggered && !jailerDead)
         {
             if (!FindObjectOfType<Jailer_Aidan>().swordTaken)
             {
@@ -90,8 +84,5 @@ public class UIManager_Aidan : MonoBehaviour {
         }
     }
 
-    public void OnEndScreenButtonPress()
-    {
-        SceneManager.LoadScene("MainGameScene");
-    }
+    
 }

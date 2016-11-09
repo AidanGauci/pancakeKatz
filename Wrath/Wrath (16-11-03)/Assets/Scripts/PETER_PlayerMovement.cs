@@ -74,7 +74,8 @@ public class PETER_PlayerMovement : MonoBehaviour
 
     public void TutorialDone()
     {
-        agent.areaMask = 10001;
+        print("tutorial finished");
+        agent.areaMask = 1000011;
     }
 
 }

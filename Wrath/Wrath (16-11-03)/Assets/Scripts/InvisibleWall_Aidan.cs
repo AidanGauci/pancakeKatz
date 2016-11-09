@@ -5,18 +5,20 @@ public class InvisibleWall_Aidan : MonoBehaviour {
 
     public GameObject invisibleWall;
 
-    Jailer_Aidan jailer;
+    PickupSword_Aidan sword;
     UIManager_Aidan UI;
+    PETER_PlayerMovement playerRef;
 
     void Start()
     {
+        playerRef = FindObjectOfType<PETER_PlayerMovement>();
         UI = FindObjectOfType<UIManager_Aidan>();
-        jailer = FindObjectOfType<Jailer_Aidan>();
+        sword = FindObjectOfType<PickupSword_Aidan>();
     }
 
     void Update()
     {
-        if (jailer.swordTaken)
+        if (sword.isSwordTaken)
         {
             Destroy(transform.parent.gameObject);
         }
@@ -27,7 +29,6 @@ public class InvisibleWall_Aidan : MonoBehaviour {
         print("hitting tutorial trigger");
         if (hit.tag == "Player")
         {
-            jailer.wallTriggered = true;
             UI.wallTriggered = true;
         }
     }
@@ -37,7 +38,6 @@ public class InvisibleWall_Aidan : MonoBehaviour {
         print("hitting tutorial trigger");
         if (hit.tag == "Player")
         {
-            jailer.wallTriggered = false;
             UI.wallTriggered = false;
         }
     }

@@ -40,7 +40,7 @@ public class AllyAI_Aidan : MonoBehaviour {
     bool atEnd = false;
     public bool doneBefore {get; private set;}
 
-    void Start()
+    void Awake()
     {
         myCollider = GetComponent<CapsuleCollider>();
         navigator = GetComponent<NavMeshAgent>();
@@ -134,10 +134,5 @@ public class AllyAI_Aidan : MonoBehaviour {
     bool CircleCircleCheck(Vector3 P1, float R1, Vector3 P2, float R2)
     {
         return ((P1 - P2).sqrMagnitude < ((R1*R1)+(R1*R2)));
-    }
-
-    void RemoveColliderStuff()
-    {
-
     }
 }
