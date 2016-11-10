@@ -30,9 +30,9 @@ public class PickupSword_Aidan : MonoBehaviour {
                     UI.swordText.gameObject.SetActive(false);
                     UI.swordTextBackground.gameObject.SetActive(false);
 
-                    Transform Model = playerRef.transform.FindChild("Model");
-                    Transform pickaxe = Model.FindChild("PickaxeMesh");
-                    Transform sword = Model.FindChild("SwordMesh");
+                    Transform Model = playerRef.transform.FindChild("CamX");
+                    Transform pickaxe = Model.FindChild("Pickaxe");
+                    Transform sword = Model.FindChild("Sword");
 
                     pickaxe.gameObject.SetActive(false);
                     sword.gameObject.SetActive(true);
