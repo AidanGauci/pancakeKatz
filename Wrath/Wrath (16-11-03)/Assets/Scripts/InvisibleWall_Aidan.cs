@@ -16,10 +16,6 @@ public class InvisibleWall_Aidan : MonoBehaviour {
         sword = FindObjectOfType<PickupSword_Aidan>();
     }
 
-    void Update()
-    {
-    }
-
 	void OnTriggerEnter(Collider hit)
     {
         Debug.Log("POOP");

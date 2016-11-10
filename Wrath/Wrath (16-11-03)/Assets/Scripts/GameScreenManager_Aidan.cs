@@ -7,7 +7,7 @@ public class GameScreenManager_Aidan : MonoBehaviour {
 	public void PlayAgain()
     {
         Cursor.visible = false;
-        SceneManager.LoadScene("MainGameScene");
+        SceneManager.LoadScene("GrayBox_Done");
     }
 
     public void ExitGame()
