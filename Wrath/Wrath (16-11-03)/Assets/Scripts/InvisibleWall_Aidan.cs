@@ -18,15 +18,11 @@ public class InvisibleWall_Aidan : MonoBehaviour {
 
     void Update()
     {
-        if (sword.isSwordTaken)
-        {
-            Destroy(transform.parent.gameObject);
-        }
     }
 
 	void OnTriggerEnter(Collider hit)
     {
-        print("hitting tutorial trigger");
+        Debug.Log("POOP");
         if (hit.tag == "Player")
         {
             UI.wallTriggered = true;

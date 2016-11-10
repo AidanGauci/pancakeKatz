@@ -49,15 +49,6 @@ public class UIManager_Aidan : MonoBehaviour {
                 swordText.text = "Get back to work!";
             }
         }
-        else if (!wallTriggered)
-        {
-            if (!pickup.isSwordTaken)
-            {
-                swordText.text = "Press 'E' to pick up sword";
-                swordText.gameObject.SetActive(false);
-                swordTextBackground.gameObject.SetActive(false);
-            }
-        }
     }
 
     public void OnAllyCountChange()

@@ -22,6 +22,7 @@ public class PickupSword_Aidan : MonoBehaviour
         {
             if (CircleCircleCheck(transform.position, 1, playerRef.transform.position, checkDistance))
             {
+                UI.swordText.text = "Press E to pickup Sword";
                 UI.swordText.gameObject.SetActive(true);
                 UI.swordTextBackground.gameObject.SetActive(true);
 
