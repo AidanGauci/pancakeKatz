@@ -80,7 +80,7 @@ public class PETER_PlayerCamera : MonoBehaviour
         // translate camera forward if it's colliding with objects tagged "enviroCamCollider"
         Vector3 camRayDir = CamTargetRay.position - CamAim.position;
         RaycastHit[] camRayHits = Physics.RaycastAll(CamAim.position, camRayDir, camRayDir.magnitude);
-        for (int i = 0; camRayHits.Length < i; i++)
+        for (int i = 0; camRayHits.Length > i; i++)
         {
             if (camRayHits[i].transform.tag == "enviroCamCollider")
             {
