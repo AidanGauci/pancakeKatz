@@ -32,9 +32,9 @@ public class PickupSword_Aidan : MonoBehaviour
                     UI.swordText.gameObject.SetActive(false);
                     UI.swordTextBackground.gameObject.SetActive(false);
 
-                    Transform Model = playerRef.transform.FindChild("CamX");
-                    Transform pickaxe = Model.FindChild("Pickaxe");
-                    Transform sword = Model.FindChild("Sword");
+                    Transform Model = playerRef.transform.FindChild("Model");
+                    Transform pickaxe = Model.FindChild("PickaxeMesh");
+                    Transform sword = Model.FindChild("SwordMesh");
 
                     pickaxe.gameObject.SetActive(false);
                     sword.gameObject.SetActive(true);
@@ -46,7 +46,7 @@ public class PickupSword_Aidan : MonoBehaviour
                     playerRef.GetComponent<NavMeshAgent>().areaMask = 10001;
                 }
             }
-            else if (Vector3.Distance(transform.position, playerRef.transform.position) > checkDistance)
+            else if (!CircleCircleCheck(transform.position, 1, playerRef.transform.position, checkDistance) && !UI.wallTriggered)
             {
                 UI.swordText.gameObject.SetActive(false);
                 UI.swordTextBackground.gameObject.SetActive(false);
