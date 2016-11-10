@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PickupSword_Aidan : MonoBehaviour {
+public class PickupSword_Aidan : MonoBehaviour
+{
 
     public float checkDistance = 1f;
 
@@ -36,9 +37,12 @@ public class PickupSword_Aidan : MonoBehaviour {
 
                     pickaxe.gameObject.SetActive(false);
                     sword.gameObject.SetActive(true);
+                    playerRef.hasWeapon = true;
+
                     gameObject.SetActive(false);
 
-                    playerRef.hasWeapon = true;
+                    Debug.Log("TUTORIAL COMPLETE");
+                    playerRef.GetComponent<NavMeshAgent>().areaMask = 10001;
                 }
             }
             else if (Vector3.Distance(transform.position, playerRef.transform.position) > checkDistance)
