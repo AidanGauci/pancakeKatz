@@ -15,17 +15,17 @@ public class UIManager_Aidan : MonoBehaviour {
     public int allyCurrentCount { get; private set; }
     public bool wallTriggered = false;
 
-    bool jailerDead = false;
+    PickupSword_Aidan pickup;
     float deactivateTime1;
     float deactivateTime2;
 
+    void Start()
+    {
+        pickup = FindObjectOfType<PickupSword_Aidan>();
+    }
+
     void Update()
     {
-        if (FindObjectOfType<Jailer_Aidan>() == null)
-        {
-            jailerDead = true;
-        }
-
         if (deactivateTime1 <= Time.time)
         {
             saveAllyTexts[0].text = "";
@@ -40,18 +40,18 @@ public class UIManager_Aidan : MonoBehaviour {
             saveAllyBackgrounds[1].gameObject.SetActive(false);
         }
 
-        if (wallTriggered && !jailerDead)
+        if (wallTriggered)
         {
-            if (!FindObjectOfType<Jailer_Aidan>().swordTaken)
+            if (!pickup.isSwordTaken)
             {
                 swordText.gameObject.SetActive(true);
                 swordTextBackground.gameObject.SetActive(true);
                 swordText.text = "Get back to work!";
             }
         }
-        else if (!wallTriggered && !jailerDead)
+        else if (!wallTriggered)
         {
-            if (!FindObjectOfType<Jailer_Aidan>().swordTaken)
+            if (!pickup.isSwordTaken)
             {
                 swordText.text = "Press 'E' to pick up sword";
                 swordText.gameObject.SetActive(false);

@@ -3,16 +3,15 @@ using System.Collections;
 
 public class PickupSword_Aidan : MonoBehaviour {
 
-    [HideInInspector]
-    public bool isSwordTaken;
     public float checkDistance = 1f;
 
-    PETER_PlayerMovement playerRef;
+    PETER_PlayerAttack playerRef;
     UIManager_Aidan UI;
+    public bool isSwordTaken;
 
     void Start()
     {
-        playerRef = FindObjectOfType<PETER_PlayerMovement>();
+        playerRef = FindObjectOfType<PETER_PlayerAttack>();
         UI = FindObjectOfType<UIManager_Aidan>();
     }
 
@@ -22,7 +21,6 @@ public class PickupSword_Aidan : MonoBehaviour {
         {
             if (CircleCircleCheck(transform.position, 1, playerRef.transform.position, checkDistance))
             {
-                UI.swordText.text = "Press 'E' to pick up sword";
                 UI.swordText.gameObject.SetActive(true);
                 UI.swordTextBackground.gameObject.SetActive(true);
 
@@ -31,26 +29,23 @@ public class PickupSword_Aidan : MonoBehaviour {
                     isSwordTaken = true;
                     UI.swordText.gameObject.SetActive(false);
                     UI.swordTextBackground.gameObject.SetActive(false);
+
+                    Transform Model = playerRef.transform.FindChild("Model");
+                    Transform pickaxe = Model.FindChild("PickaxeMesh");
+                    Transform sword = Model.FindChild("SwordMesh");
+
+                    pickaxe.gameObject.SetActive(false);
+                    sword.gameObject.SetActive(true);
+                    gameObject.SetActive(false);
+
+                    playerRef.hasWeapon = true;
                 }
             }
-            else if (CircleCircleCheck(transform.position, 1, playerRef.transform.position, checkDistance))
+            else if (Vector3.Distance(transform.position, playerRef.transform.position) > checkDistance)
             {
-                UI.swordText.text = "";
                 UI.swordText.gameObject.SetActive(false);
                 UI.swordTextBackground.gameObject.SetActive(false);
             }
-        }
-        else if (isSwordTaken)
-        {
-            Transform camX = playerRef.transform.FindChild("CamX");
-            Transform pickaxe = camX.FindChild("Pickaxe");
-            Transform sword = camX.FindChild("Sword");
-
-            playerRef.TutorialDone();
-
-            pickaxe.gameObject.SetActive(false);
-            sword.gameObject.SetActive(true);
-            gameObject.SetActive(false);
         }
     }
 

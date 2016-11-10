@@ -4,11 +4,8 @@ using System.Collections;
 public class PETER_CursorManager : MonoBehaviour
 {
 
-    GameManager_Aidan gameManager;
-
 	void Start ()
     {
-        gameManager = FindObjectOfType<GameManager_Aidan>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }

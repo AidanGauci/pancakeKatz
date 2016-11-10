@@ -5,8 +5,8 @@ public class PETER_PlayerAttack : MonoBehaviour
 {
 
     public Transform Weapon;
-    public Transform WeaponPointer;
-    public Transform AnglePointer;
+    public Transform WeaponPointerIdle;
+    public Transform WeaponPointerSwing;
     public bool hasWeapon;
     public float swingSpeed;
     public float attackTime;
@@ -29,11 +29,11 @@ public class PETER_PlayerAttack : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-        hasWeapon = true;
+        hasWeapon = false;
         currState = attackState.notAttacking;
         timer = 0.0f;
 
-        Weapon.position = WeaponPointer.position;
+        Weapon.position = WeaponPointerIdle.position;
         ///Weapon.rotation = WeaponPointer.rotation;
     }
 
@@ -48,7 +48,8 @@ public class PETER_PlayerAttack : MonoBehaviour
         // NOT ATTACKING STATE
         if (currState == attackState.notAttacking)
         {
-            if (Input.GetMouseButtonDown(0))
+            Weapon.position = WeaponPointerIdle.position;
+            if (hasWeapon && Input.GetMouseButtonDown(0))
             {
                 currState = attackState.beginSwing;
                 timer = 0.0f;
@@ -59,11 +60,11 @@ public class PETER_PlayerAttack : MonoBehaviour
         else if (currState == attackState.beginSwing)
         {
             timer += Time.deltaTime * swingSpeed;
-            Weapon.position = Vector3.Lerp(WeaponPointer.position, AnglePointer.position, timer);
+            Weapon.position = Vector3.Lerp(WeaponPointerIdle.position, WeaponPointerSwing.position, timer);
             ///Weapon.rotation = Quaternion.Lerp(WeaponPointer.rotation, AnglePointer.rotation, timer);
             if (timer >= 1)
             {
-                Weapon.position = AnglePointer.position;
+                Weapon.position = WeaponPointerSwing.position;
                 ///Weapon.rotation = AnglePointer.rotation;
                 currState = attackState.midSwing;
                 timer = 0.0f;
@@ -74,6 +75,7 @@ public class PETER_PlayerAttack : MonoBehaviour
         else if (currState == attackState.midSwing)
         {
             timer += Time.deltaTime * attackTime;
+            Weapon.position = WeaponPointerSwing.position;
             if (timer >= 1)
             {
                 currState = attackState.endSwing;
@@ -85,11 +87,11 @@ public class PETER_PlayerAttack : MonoBehaviour
         else if (currState == attackState.endSwing)
         {
             timer += Time.deltaTime * swingSpeed;
-            Weapon.position = Vector3.Lerp(AnglePointer.position, WeaponPointer.position, timer);
+            Weapon.position = Vector3.Lerp(WeaponPointerSwing.position, WeaponPointerIdle.position, timer);
             ///Weapon.rotation = Quaternion.Lerp(AnglePointer.rotation, WeaponPointer.rotation, timer);
             if (timer >= 1)
             {
-                Weapon.position = WeaponPointer.position;
+                Weapon.position = WeaponPointerIdle.position;
                 ///Weapon.rotation = WeaponPointer.rotation;
                 currState = attackState.notAttacking;
                 timer = 0.0f;
