@@ -1,4 +1,0 @@
-sceneSetups:
-- path: Assets/scenes/GrayBox_Done.unity
-  isLoaded: 1
-  isActive: 1
