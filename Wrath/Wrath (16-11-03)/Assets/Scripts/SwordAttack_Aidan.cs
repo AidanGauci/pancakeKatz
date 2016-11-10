@@ -28,7 +28,7 @@ public class SwordAttack_Aidan : MonoBehaviour {
         {
             Destroy(hit.gameObject);
         }
-        else if (hit.tag == "EndDoor" && playerAtt.currState == PETER_PlayerAttack.attackState.midSwing)
+        else if (hit.tag == "EndDoor")
         {
             FindObjectOfType<GameManager_Aidan>().HasHitEndBox();
         }

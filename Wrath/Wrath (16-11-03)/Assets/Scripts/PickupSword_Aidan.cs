@@ -46,7 +46,7 @@ public class PickupSword_Aidan : MonoBehaviour
                     playerRef.GetComponent<NavMeshAgent>().areaMask = 10001;
                 }
             }
-            else if (Vector3.Distance(transform.position, playerRef.transform.position) > checkDistance)
+            else if (!CircleCircleCheck(transform.position, 1, playerRef.transform.position, checkDistance) && !UI.wallTriggered)
             {
                 UI.swordText.gameObject.SetActive(false);
                 UI.swordTextBackground.gameObject.SetActive(false);

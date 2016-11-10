@@ -33,17 +33,9 @@ public class DoorManager_Aidan : MonoBehaviour {
             {
                 FindObjectOfType<GameManager_Aidan>().isDoorBroken = true;
                 playerRef.GetComponent<NavMeshAgent>().areaMask = 10011;
-                GameObject[] doorSpheres = GameObject.FindGameObjectsWithTag("door");
                 if (doorParticleEffect != null)
                 {
-                    float randomX = Random.Range(85, 95);
-                    float randomY = Random.Range(-2, 2);
-                    float randomZ = Random.Range(-2, 2);
-
-                    foreach (GameObject removable in doorSpheres)
-                    {
-                        Destroy(Instantiate(doorParticleEffect, removable.transform.position, Quaternion.Euler(randomX, randomY, randomZ)), 2);
-                    }
+                    Destroy(Instantiate(doorParticleEffect, transform.position, Quaternion.identity), 2);
                 }
 
                 Destroy(gameObject);

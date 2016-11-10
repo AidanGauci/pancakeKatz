@@ -14,10 +14,10 @@ public class PETER_PlayerMovement : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
 	}
+	
 
-
-    // Update is called once per frame
-    void Update()
+	// Update is called once per frame
+	void Update ()
     {
         Vector3 Angle = AnglePointer.position - this.transform.position;
         Vector3 newPos = new Vector3(0, 0, 0);
@@ -69,6 +69,13 @@ public class PETER_PlayerMovement : MonoBehaviour
 
 
 
+    }
+
+
+    public void TutorialDone()
+    {
+        print("tutorial finished");
+        agent.areaMask = 10001;
     }
 
 }
