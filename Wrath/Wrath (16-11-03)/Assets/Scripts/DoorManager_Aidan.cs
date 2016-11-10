@@ -32,7 +32,7 @@ public class DoorManager_Aidan : MonoBehaviour {
             if (allAlliesCollided)
             {
                 FindObjectOfType<GameManager_Aidan>().isDoorBroken = true;
-                playerRef.GetComponent<NavMeshAgent>().areaMask = 100111;
+                playerRef.GetComponent<NavMeshAgent>().areaMask = 10011;
                 GameObject[] doorSpheres = GameObject.FindGameObjectsWithTag("door");
                 if (doorParticleEffect != null)
                 {
