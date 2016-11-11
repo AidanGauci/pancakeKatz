@@ -2,9 +2,13 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class GameScreenManager_Aidan : MonoBehaviour {
+public class GameScreenManager_Aidan : MonoBehaviour
+{
 
-	public void PlayAgain()
+    public RectTransform mainMenu;
+    public RectTransform settingsMenu;
+
+    public void PlayAgain()
     {
         Cursor.visible = false;
         SceneManager.LoadScene("GrayBox_Done");
@@ -18,5 +22,17 @@ public class GameScreenManager_Aidan : MonoBehaviour {
     public void ToMainMenu()
     {
         SceneManager.LoadScene("MainMenuScene");
+    }
+
+    public void SettingsMenuButton()
+    {
+        mainMenu.gameObject.SetActive(false);
+        settingsMenu.gameObject.SetActive(true);
+    }
+
+    public void BackToMainMenu()
+    {
+        settingsMenu.gameObject.SetActive(false);
+        mainMenu.gameObject.SetActive(true);
     }
 }

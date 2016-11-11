@@ -3,12 +3,17 @@ using System.Collections;
 
 public class PickupSword_Aidan : MonoBehaviour
 {
-
+    [HideInInspector]
+    public bool isSwordTaken;
     public float checkDistance = 1f;
+    public float textBoxTime = 2f;
+    public string toSay;
 
     PETER_PlayerAttack playerRef;
     UIManager_Aidan UI;
-    public bool isSwordTaken;
+    bool timeSet = false;
+    bool instructionDone = false;
+    float currentWaitTime;
 
     void Start()
     {
@@ -50,6 +55,26 @@ public class PickupSword_Aidan : MonoBehaviour
             {
                 UI.swordText.gameObject.SetActive(false);
                 UI.swordTextBackground.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            if (timeSet && !instructionDone)
+            {
+                if (currentWaitTime <= Time.time)
+                {
+                    UI.swordText.gameObject.SetActive(false);
+                    UI.swordTextBackground.gameObject.SetActive(false);
+                    instructionDone = true;
+                }
+            }
+            else if (!timeSet && !instructionDone)
+            {
+                currentWaitTime = Time.time + textBoxTime;
+                timeSet = true;
+                UI.swordText.gameObject.SetActive(true);
+                UI.swordTextBackground.gameObject.SetActive(true);
+                UI.swordText.text = toSay;
             }
         }
     }
